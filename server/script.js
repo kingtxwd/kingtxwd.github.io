@@ -12,7 +12,7 @@ const client = new MongoClient(url, { useNewUrlParser: true });
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => res.send('Hello World!'));
 app.get('/words', (req, res) => {
