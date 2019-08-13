@@ -16,28 +16,27 @@
 
     <div class="part1">
         <input type="text"  name="input-part1" id="input-part1">
-        <button onclick="start()">start</button>
-        <button onclick="random()">random</button>
+        <button onclick="start()">Start</button>
+        <button onclick="random()">Random</button>
     </div>
     <div class="part2">
-        <div>
-            <button onclick="restart()">play next word</button>
-        </div>
-        <div class="container"></div>
-        <div>
+        <div class="container mb4"></div>
+
+        <div class="mb4 horizontal-middle">
             <input type="text" maxlength="1" name="c" id="input-c">
-            <button onclick="guess()">guess</button>
+            <button onclick="guess()">Guess</button>
         </div>
-        <div>
-            Remaining life:
-            <input type="text"  name="life" id="life" disabled>
+        <div class="mb4 horizontal-middle">
+            Remaining Life:
+            <span id="life"></span>
         </div>
-        <div>
-            Guessed alphabets:
+        <div class="mb4 horizontal-middle">
+            Guessed Alphabets:
             <span class="guessed-alpha"></span>
         </div>
-        <div>
-            <button onclick="init()">guess again</button>
+        <div class="mb4 horizontal-middle">
+            <button onclick="init()">Guess Again</button>
+            <button onclick="restart()">Next Word</button>   
         </div>
     </div>
   <script src="scripts.js"></script>

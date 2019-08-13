@@ -33,11 +33,11 @@ function random(){
 function init(){
     document.getElementsByClassName('container')[0].innerHTML = '';
     for(i = 0; i < word.length;i++){
-        document.getElementsByClassName('container')[0].innerHTML += `<div class="character"><input type="text" maxlength="1" name="c${i+1}" id="input-${i+1}" disabled></div>`;
+        document.getElementsByClassName('container')[0].innerHTML += `<div class="character" id="input-${i+1}"></div>`;
     }
     document.getElementById('input-c').value = '';
     document.getElementsByClassName('guessed-alpha')[0].innerText = '';
-    document.getElementById('life').value = life;
+    document.getElementById('life').innerHTML = life;
 }
 function guess(){
     const guess = document.getElementById('input-c').value.toLowerCase();
@@ -65,13 +65,13 @@ function guess(){
         for (i = 0; i < response.length; i++){
             if (response[i])
             {
-                document.getElementById('input-' + (i+1)).value = guess;
+                document.getElementById('input-' + (i+1)).innerHTML = guess;
                 c++;            
                 f = 1;
             }
         }
         if (c === response.length) {alert('Success');}
-        if (f === 0){ life--; document.getElementById('life').value = life; }
+        if (f === 0){ life--; document.getElementById('life').innerHTML = life; }
         if (life === 0) {alert('You are Dead');}
     })
     .catch(error => console.error('Error:', error));   
