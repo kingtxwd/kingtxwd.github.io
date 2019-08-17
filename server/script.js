@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+
 let pickedWord = '';
 
 const MongoClient = require('mongodb').MongoClient;
@@ -41,5 +42,5 @@ app.post('/guess', function(req, res) {
 });
 
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'));
+app.listen(3000, () => console.log('Hangman app listening on port 3000!'));
 

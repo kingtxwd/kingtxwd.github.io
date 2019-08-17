@@ -50,3 +50,32 @@ input {
     width:100%;
     text-align: center;
 }
+
+.alphabetkey{
+    background-color:burlywood;
+    width: 60px;
+	cursor:pointer;
+    color:#ffffff;
+    display:inline-block;
+    padding:8px  0;
+    text-decoration:none;
+    font-size:20px;
+    border:none;
+    margin-left: 8px;
+    text-align:center;
+    margin-bottom: 8px;
+}
+
+.alphabet{
+    width: 600px;
+    margin:12px auto;
+    text-align:center;
+}
+
+.hidden{
+    display: none;
+}
+
+.alphabetkey-disable{
+    background-color: grey;
+}
