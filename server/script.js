@@ -22,7 +22,6 @@ app.get('/words', (req, res) => {
         var db = client.db('hangman');
         var collection = db.collection('words');
         collection.find().toArray((err, items) => {
-            
             items.forEach(item => {
                 if (item != null) {
                     dictionary.push(item.spell);
@@ -35,12 +34,21 @@ app.get('/words', (req, res) => {
     }); 
 });
 
+app.get('/alphabet', (req, res) => {
+    client.connect(function(err) {
+        var db = client.db('hangman');
+        var collection = db.collection('alphabet');
+        collection.findOne({},(err, item) => {
+            res.json(["a", "b", "c"]);
+        })
+    }); 
+});
+
 app.post('/guess', function(req, res) {
     let character = req.body.character;
     const array = pickedWord.split('');
     res.send(array.map(char => character == char));
 });
-
 
 app.listen(3000, () => console.log('Hangman app listening on port 3000!'));
 

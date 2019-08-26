@@ -2,34 +2,8 @@ let word = '';
 let c = 0;
 let life = 7;
 let guessedWords = {};
-let alphabet = {
-    a:true,
-    b:true,
-    c:true,
-    d:true,
-    e:true,
-    f:true,
-    g:true,
-    h:true,
-    i:true,
-    j:true,
-    k:true,
-    l:true,
-    m:true,
-    n:true,
-    o:true,
-    p:true,
-    q:true,
-    r:true,
-    s:true,
-    t:true,
-    u:true,
-    v:true,
-    w:true,
-    x:true,
-    y:true,
-    z:true,
-}
+
+
 
 init();
 function start(){
@@ -65,13 +39,21 @@ function init(){
         document.getElementsByClassName('container')[0].innerHTML += `<div class="character" id="input-${i+1}"></div>`;
     }
     document.getElementsByClassName('alphabet')[0].innerHTML = '';
-    Object.keys(alphabet).forEach(function(key){
-        document.getElementsByClassName('alphabet')[0].innerHTML += `<div class="alphabetkey"  onclick="keyClicked(this);"  data-key=${key}>${key.toUpperCase()}</div>`
-    });
+    fetch('http://localhost:3000/alphabet')
+        .then(function(data) { 
+            console.log(JSON.parse(data.body));
+            Object.keys(JSON.parse(data.body)).forEach(function(key){
+                document.getElementsByClassName('alphabet')[0].innerHTML += `<div class="alphabetkey"  onclick="keyClicked(this);"  data-key=${key}>${key.toUpperCase()}</div>`
+            });
+            
+            document.getElementById('input-c').value = '';
+            document.getElementsByClassName('guessed-alpha')[0].innerText = '';
+            document.getElementById('life').innerHTML = life;
+        })
+        .catch(function(error) {
+            alert(error);
+        });
     
-    document.getElementById('input-c').value = '';
-    document.getElementsByClassName('guessed-alpha')[0].innerText = '';
-    document.getElementById('life').innerHTML = life;
 }
 function guess(){
     const guess = document.getElementById('input-c').value.toLowerCase();
