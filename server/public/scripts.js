@@ -9,37 +9,33 @@ function random(){
         .then(function(data) { 
             data.text().then(function(text) {
                 word = text.toLowerCase();      
-                init();
+                c = 0;
+                life = 7;
+                guessedWords = {};
+                document.getElementsByClassName('container')[0].innerHTML = '';
+                for(i = 0; i < word.length;i++){
+                    document.getElementsByClassName('container')[0].innerHTML += `<div class="character" id="input-${i+1}"></div>`;
+                }
+                document.getElementsByClassName('alphabet')[0].innerHTML = '';
+                fetch('http://localhost:3000/alphabet')
+                    .then(function(data) {
+                        data.json().then(function(alphabets){
+                            alphabets.forEach(function(key){
+                                document.getElementsByClassName('alphabet')[0].innerHTML += `<div class="alphabetkey"  onclick="keyClicked(this);"  data-key=${key}>${key.toUpperCase()}</div>`
+                            });
+                            currentInput = null;
+                            document.getElementById('life').innerHTML = life;
+                        });
+                    })
+                    .catch(function(error) {
+                        alert(error);
+                    });
             });                  
         })
         .catch(function(error) {
             alert(error);
         });
 
-}
-function init(){
-    c = 0;
-    life = 7;
-    guessedWords = {};
-    document.getElementsByClassName('container')[0].innerHTML = '';
-    for(i = 0; i < word.length;i++){
-        document.getElementsByClassName('container')[0].innerHTML += `<div class="character" id="input-${i+1}"></div>`;
-    }
-    document.getElementsByClassName('alphabet')[0].innerHTML = '';
-    fetch('http://localhost:3000/alphabet')
-        .then(function(data) {
-            data.json().then(function(alphabets){
-                alphabets.forEach(function(key){
-                    document.getElementsByClassName('alphabet')[0].innerHTML += `<div class="alphabetkey"  onclick="keyClicked(this);"  data-key=${key}>${key.toUpperCase()}</div>`
-                });
-                currentInput = null;
-                document.getElementById('life').innerHTML = life;
-            });
-        })
-        .catch(function(error) {
-            alert(error);
-        });
-    
 }
 function guess(){
     const guess = currentInput.toLowerCase();
@@ -71,7 +67,7 @@ function guess(){
                 f = 1;
             }
         }
-        if (c === response.length) {alert('Success');}
+        if (c === response.length) {alert('Success');random();}
         if (f === 0){ life--; document.getElementById('life').innerHTML = life; }
         if (life === 0) {alert('You are Dead');}
     })
