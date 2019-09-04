@@ -2,30 +2,14 @@ let word = '';
 let c = 0;
 let life = 7;
 let guessedWords = {};
-
-
-
-init();
-function start(){
-    word = document.getElementById('input-part1').value.toLowerCase();
-    c = 0;
-    life = 7;
-    guessedWords = {};
-    init();
-    document.getElementsByClassName("part1")[0].style.display = 'none';
-    document.getElementsByClassName("part2")[0].style.display = 'block';
-}
+let currentInput = null;
+random();
 function random(){
     fetch('http://localhost:3000/words')
         .then(function(data) { 
             data.text().then(function(text) {
                 word = text.toLowerCase();      
-                c = 0;
-                life = 7;
-                guessedWords = {};
                 init();
-                document.getElementsByClassName("part1")[0].style.display = 'none';
-                document.getElementsByClassName("part2")[0].style.display = 'block';
             });                  
         })
         .catch(function(error) {
@@ -34,21 +18,23 @@ function random(){
 
 }
 function init(){
+    c = 0;
+    life = 7;
+    guessedWords = {};
     document.getElementsByClassName('container')[0].innerHTML = '';
     for(i = 0; i < word.length;i++){
         document.getElementsByClassName('container')[0].innerHTML += `<div class="character" id="input-${i+1}"></div>`;
     }
     document.getElementsByClassName('alphabet')[0].innerHTML = '';
     fetch('http://localhost:3000/alphabet')
-        .then(function(data) { 
-            console.log(JSON.parse(data.body));
-            Object.keys(JSON.parse(data.body)).forEach(function(key){
-                document.getElementsByClassName('alphabet')[0].innerHTML += `<div class="alphabetkey"  onclick="keyClicked(this);"  data-key=${key}>${key.toUpperCase()}</div>`
+        .then(function(data) {
+            data.json().then(function(alphabets){
+                alphabets.forEach(function(key){
+                    document.getElementsByClassName('alphabet')[0].innerHTML += `<div class="alphabetkey"  onclick="keyClicked(this);"  data-key=${key}>${key.toUpperCase()}</div>`
+                });
+                currentInput = null;
+                document.getElementById('life').innerHTML = life;
             });
-            
-            document.getElementById('input-c').value = '';
-            document.getElementsByClassName('guessed-alpha')[0].innerText = '';
-            document.getElementById('life').innerHTML = life;
         })
         .catch(function(error) {
             alert(error);
@@ -56,13 +42,12 @@ function init(){
     
 }
 function guess(){
-    const guess = document.getElementById('input-c').value.toLowerCase();
+    const guess = currentInput.toLowerCase();
     if (guessedWords[guess]){
         alert(`${guess} Already Used`);
         return false;
     } else {
         guessedWords[guess] = true;
-        document.getElementsByClassName('guessed-alpha')[0].innerHTML += guess + ' ';
     }
 
     var url = '/guess';
@@ -93,11 +78,10 @@ function guess(){
     .catch(error => console.error('Error:', error));   
 }
 function restart(){
-    document.getElementsByClassName("part2")[0].style.display = 'none';
-    document.getElementsByClassName("part1")[0].style.display = 'block';
+    random();
 }
 function keyClicked(event) {
-    document.getElementById('input-c').value = event.dataset.key;
+    currentInput = event.dataset.key;
     event.classList.add('alphabetkey-disable');
     guess();
 }
