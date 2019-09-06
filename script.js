@@ -55,5 +55,5 @@ app.post('/guess', function(req, res) {
     res.send(array.map(char => character == char));
 });
 
-app.listen(3000, () => console.log('Hangman app listening on port 3000!'));
+app.listen(process.env.PORT || 3000, () => console.log('Hangman app listening on port 3000!'));
 
