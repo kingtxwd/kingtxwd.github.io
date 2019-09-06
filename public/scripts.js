@@ -38,6 +38,7 @@ function random(){
 
 }
 function guess(){
+    document.getElementsByClassName('alphabet').classList.add('non-click');
     const guess = currentInput.toLowerCase();
     if (guessedWords[guess]){
         alert(`${guess} Already Used`);
@@ -57,7 +58,7 @@ function guess(){
         }
     }).then(res =>  res.json())
     .then(response => {
-        console.log(response);
+        document.getElementsByClassName('alphabet').classList.remove('non-click');
         let f = 0;
         for (i = 0; i < response.length; i++){
             if (response[i])

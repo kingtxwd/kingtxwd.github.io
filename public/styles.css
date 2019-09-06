@@ -20,10 +20,6 @@ body {
     line-height: 100px;
 }
 
-.part2 {
-    display: none;
-}
-
 button {
 	background-color:#076fed;
 	border-radius:8px;
@@ -34,12 +30,6 @@ button {
     text-decoration:none;
     font-size:20px;
     border:none;
-}
-input {
-    height: 36px;
-    border: none;
-    border-radius: 8px;
-    font-size: 20px;
 }
 
 .mb4{
@@ -78,4 +68,8 @@ input {
 
 .alphabetkey-disable{
     background-color: grey;
+}
+
+.non-click{
+    pointer-events:none;
 }
