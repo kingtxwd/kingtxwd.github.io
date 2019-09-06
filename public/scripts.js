@@ -5,7 +5,7 @@ let guessedWords = {};
 let currentInput = null;
 random();
 function random(){
-    fetch('http://localhost:3000/words')
+    fetch('/words')
         .then(function(data) { 
             data.text().then(function(text) {
                 word = text.toLowerCase();      
@@ -17,7 +17,7 @@ function random(){
                     document.getElementsByClassName('container')[0].innerHTML += `<div class="character" id="input-${i+1}"></div>`;
                 }
                 document.getElementsByClassName('alphabet')[0].innerHTML = '';
-                fetch('http://localhost:3000/alphabet')
+                fetch('/alphabet')
                     .then(function(data) {
                         data.json().then(function(alphabets){
                             alphabets.forEach(function(key){
