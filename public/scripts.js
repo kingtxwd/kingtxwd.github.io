@@ -71,7 +71,7 @@ function guess(){
         }
         if (c === response.length) {alert('Success');random();}
         if (f === 0){ life--; document.getElementById('life').innerHTML = life; }
-        if (life === 0) {alert('You are Dead');}
+        if (life === 0) {alert('You are Dead');random();}
     })
     .catch(error => console.error('Error:', error));   
 }
