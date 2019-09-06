@@ -42,6 +42,7 @@ function guess(){
     const guess = currentInput.toLowerCase();
     if (guessedWords[guess]){
         alert(`${guess} Already Used`);
+        document.getElementsByClassName('alphabet')[0].classList.remove('non-click');
         return false;
     } else {
         guessedWords[guess] = true;
